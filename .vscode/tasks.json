@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "java (build)",
+			"paths": [
+				"${workspace}"
+			],
+			"isFullBuild": true,
+			"group": "build",
+			"problemMatcher": [],
+			"label": "java (build): Build Workspace",
+			"detail": "$(tools) Build all the Java projects in workspace."
+		},
+		// {
+		// 	"label": "Run ghehe",
+		// 	"type": "shell",
+		// 	"command": "java -cp bin <MainClassName>",
+		// 	"dependsOn": "Build",
+		// 	"problemMatcher": [],
+		// 	"group": {
+		// 		"kind": "build",
+		// 		"isDefault": true
+		// 	}
+		// }
+
+		{
+            "label": "Run Java File",
+            "type": "shell",
+            "command": "java -cp bin com.stmikamik.recipe.management.system.${fileBasenameNoExtension}",
+            "dependsOn": "Build",
+            "problemMatcher": []
+        }
+	]
+}
