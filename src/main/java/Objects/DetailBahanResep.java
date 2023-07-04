@@ -16,6 +16,14 @@ public class DetailBahanResep {
     private int qty;
     private int id_metric;
 
+    public DetailBahanResep(int id_resep, int id_bahan_baku, byte[] foto, int qty, int id_metric) {
+        this.id_resep = id_resep;
+        this.id_bahan_baku = id_bahan_baku;
+        this.foto = foto;
+        this.qty = qty;
+        this.id_metric = id_metric;
+    }
+
     public int getId_resep() {
         return id_resep;
     }

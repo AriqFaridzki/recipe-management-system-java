@@ -13,7 +13,18 @@ public class Resep {
     private String no_resep;
     private String nama_resep;
     private String deskripsiField;
+    private String nama_kategori;
     private byte[] fotoField;
+
+    public Resep(int id_resep, String no_resep, String nama_resep, String deskripsiField, String nama_kategori, byte[] fotoField) {
+        this.id_resep = id_resep;
+        this.no_resep = no_resep;
+        this.nama_resep = nama_resep;
+        this.deskripsiField = deskripsiField;
+        this.nama_kategori = nama_kategori;
+        this.fotoField = fotoField;
+    }
+    
 
      public Resep(String no_resep, String nama_resep, String deskripsiField, byte[] fotoField) {
         this.no_resep = no_resep;
@@ -28,6 +39,14 @@ public class Resep {
         this.nama_resep = nama_resep;
         this.deskripsiField = deskripsiField;
         this.fotoField = fotoField;
+    }
+
+    public String getNama_kategori() {
+        return nama_kategori;
+    }
+
+    public void setNama_kategori(String nama_kategori) {
+        this.nama_kategori = nama_kategori;
     }
     
     public int getId_resep() {

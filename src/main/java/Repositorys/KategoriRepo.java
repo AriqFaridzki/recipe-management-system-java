@@ -6,8 +6,8 @@ package Repositorys;
 import Connectors.databaseConnector;
 import Connectors.DDLResult;
 import Objects.Kategori;
-
-
+import Objects.BahanBaku;
+import Objects.Resep;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,13 +19,71 @@ import java.util.List;
  */
 public class KategoriRepo {
       databaseConnector connector = new databaseConnector();
+     
+      public DDLResult insertKategoriBahanBaku(BahanBaku bahanBaku, Kategori kategori){
+         String query = "INSERT INTO kategori_bahan_baku (id_kategori, id_bahan_baku) VALUES (?,?)";
+         
+         int id_kategori = kategori.getId_kategori();
+         int id_bahan_baku = bahanBaku.getIdBahanBaku();
+         
+          DDLResult result = null;
+                
+             try {
+                connector.checkConnection();
+                 result  = connector.executeQueryDML(
+                        query, 
+                    
+                        id_kategori,
+                        id_bahan_baku
+                        );
+
+            } catch (SQLException e) {
+               e.printStackTrace();
+               
+            } finally {
+                connector.closeConnection();
+             
+        }
+
+//        System.out.println(values);
+//        System.out.println("berhasil coy " + RowsAffected);
+       return result;
+         
+}
+      public DDLResult insertKategoriResep(Resep resep, Kategori kategori){
+         String query = "INSERT INTO kategori_bahan_resep (id_kategori, id_bahan_baku) VALUES (?,?)";
+         
+         int id_kategori = kategori.getId_kategori();
+         int id_resep = resep.getId_resep();
+         
+          DDLResult result = null;
+                
+             try {
+                connector.checkConnection();
+                 result  = connector.executeQueryDML(
+                        query, 
+                    
+                        id_kategori,
+                        id_resep
+                        );
+
+            } catch (SQLException e) {
+               e.printStackTrace();
+               
+            } finally {
+                connector.closeConnection();
+             
+        }
+
+//        System.out.println(values);
+//        System.out.println("berhasil coy " + RowsAffected);
+       return result;
+         
+}
       
       public DDLResult addKategori(Kategori kategori){
             String query = "INSERT INTO kategori (nama_kategori) VALUES (?)";
             String queryUpdate = "UPDATE kategori SET no_kategori = ? WHERE id_kategori = ?  ";
-           
-            
-            
        
             String nama_Kategori = kategori.getNama_Kategori();
             
@@ -66,7 +124,7 @@ public class KategoriRepo {
 //        System.out.println("berhasil coy " + RowsAffected);
        return result;
     } // not tested
-     
+        
      public DDLResult updateBahanBakuById(Kategori kategori){
             String query = "UPDATE kategori SET nama_kategori=? WHERE id_kategori = ? ";
            
@@ -170,4 +228,9 @@ public class KategoriRepo {
         
        return  kategoriList;
     }
+     
+     
+     
 }
+
+

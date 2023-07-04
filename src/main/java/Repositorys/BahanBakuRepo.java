@@ -9,7 +9,7 @@ import Connectors.DDLResult;
 import Objects.BahanBaku; // ubah saja ini dengan nama file classnya
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import Objects.Kategori;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,23 +177,16 @@ public class BahanBakuRepo {
        return  bahanBakuList;
     }
      
-     public List<BahanBaku> getAllBahanBakuByKategori(BahanBaku bahanBaku){
+     public List<BahanBaku> getAllBahanBakuByKategori(Kategori kategori){
          
-/**
- * SQL 
- * SELECT
-  bahan.nama_bahan,
-  KTG.nama_kategori
-FROM
-  bahan_baku AS bahan
-  JOIN kategori_bahan_baku AS KTGBK ON bahan.id_bahan_baku = KTGBK.id_bahan_baku
-  JOIN kategori AS KTG ON KTGBK.id_kategori = KTG.id_kategori
-  WHERE KTG.nama_kategori = "buah";
- */
        
         List<BahanBaku> bahanBakuListbyKateori = new ArrayList<>();
        
-       String query = "SELECT * FROM bahan_baku"; // masih proses querynya
+       String query = "SELECT bahan_baku.id_bahan_baku, bahan_baku.no_bahan_baku ,bahan_baku.nama_bahan, bahan_baku.keterangan, kategori.nama_kategori, bahan_baku.foto" +
+                                "FROM kategori_bahan_baku" +
+                                "INNER JOIN bahan_baku ON bahan_baku.id_bahan_baku = kategori_bahan_baku.id_bahan_baku" +
+                                "INNER JOIN kategori ON kategori.id_kategori = kategori_bahan_baku.id_kategori" +
+                                "WHERE nama_kategori=?"; 
 
         try {
             connector.checkConnection();
@@ -204,11 +197,18 @@ FROM
                      int id_bahan_baku = result.getInt("id_bahan_baku");
                      String no_bahan_baku = result.getString("no_bahan_baku");
                      String namaBahan = result.getString("nama_bahan");
-                     byte[] foto = result.getBytes("foto");
                      String keterangan = result.getString("keterangan");
+                     String nama_kategori = result.getString("nama_kategori");
+                     byte[] foto = result.getBytes("foto");
                      
                      
-                     BahanBaku bahanBakuByKategori = new BahanBaku(id_bahan_baku, no_bahan_baku, namaBahan, foto, keterangan);
+                     BahanBaku bahanBakuByKategori = new BahanBaku(
+                             id_bahan_baku, 
+                             no_bahan_baku, 
+                             namaBahan, 
+                             foto, 
+                             keterangan,
+                             nama_kategori);
                      
                      bahanBakuListbyKateori.add(bahanBakuByKategori);
             }
@@ -222,7 +222,7 @@ FROM
        return  bahanBakuListbyKateori;
      }
      
-     public List<BahanBaku> getBahanBakuName(BahanBaku bahanBaku){
+     public List<BahanBaku> getBahanBakuByName(BahanBaku bahanBaku){
        List<BahanBaku> bahanBakuList = new ArrayList<>();
        
        String query = "SELECT * FROM bahan_baku WHERE nama_bahan=?"; // belum fix

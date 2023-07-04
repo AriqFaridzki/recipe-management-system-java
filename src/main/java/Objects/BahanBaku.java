@@ -14,6 +14,7 @@ public class BahanBaku {
     private String nama_bahan;
     private byte[] foto;
     private String keterangan;
+    private String nama_kategori;
 
     public BahanBaku(int id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
         this.id_bahan_baku = id_bahan_baku;
@@ -22,6 +23,16 @@ public class BahanBaku {
         this.foto = foto;
         this.keterangan = keterangan;
     }
+    
+    public BahanBaku(int id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan, String nama_kategori) {
+        this.id_bahan_baku = id_bahan_baku;
+        this.no_bahan_baku = no_bahan_baku;
+        this.nama_bahan = nama_bahan;
+        this.foto = foto;
+        this.keterangan = keterangan;
+        this.nama_kategori = nama_kategori;
+    }
+    
     
 
     public BahanBaku(int id_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
@@ -45,6 +56,30 @@ public class BahanBaku {
         this.id_bahan_baku = id_bahan_baku;
         this.nama_bahan = nama_bahan;
         this.keterangan = keterangan;
+    }
+
+    public int getId_bahan_baku() {
+        return id_bahan_baku;
+    }
+
+    public void setId_bahan_baku(int id_bahan_baku) {
+        this.id_bahan_baku = id_bahan_baku;
+    }
+
+    public String getNama_bahan() {
+        return nama_bahan;
+    }
+
+    public void setNama_bahan(String nama_bahan) {
+        this.nama_bahan = nama_bahan;
+    }
+
+    public String getNama_kategori() {
+        return nama_kategori;
+    }
+
+    public void setNama_kategori(String nama_kategori) {
+        this.nama_kategori = nama_kategori;
     }
 
     public String getNo_bahan_baku() {
