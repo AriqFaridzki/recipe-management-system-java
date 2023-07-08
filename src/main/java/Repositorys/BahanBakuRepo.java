@@ -71,19 +71,19 @@ public class BahanBakuRepo {
     }
      
      public DDLResult updateBahanBakuById(BahanBaku bahanBaku){
-            String query = "UPDATE bahan_baku SET nama_bahan=?, foto=?, keterangan=? WHERE id_bahan_baku = ? ";
+            String query = "UPDATE bahan_baku SET no_bahan_baku=?, nama_bahan=?, keterangan=?, foto=?  WHERE id_bahan_baku = ? ";
            
-            int idBahanBaku = bahanBaku.getIdBahanBaku();
+            String idBahanBaku = bahanBaku.getIdBahanBaku();
             String noBahanBaku  = bahanBaku.getNo_bahan_baku();
             String namaBahan = bahanBaku.getNamaBahan();
             String keterangan = bahanBaku.getKeterangan();
             byte[] foto = bahanBaku.getFoto();
             
-//            System.out.println(idBahanBaku);
-//            System.out.println(noBahanBaku);
-//            System.out.println(namaBahan);
-//            System.out.println(keterangan);
-//            System.out.println(foto);
+            System.out.println(idBahanBaku);
+            System.out.println(noBahanBaku);
+            System.out.println(namaBahan);
+            System.out.println(keterangan);
+            System.out.println(foto);
 //            
             DDLResult result = null;
             
@@ -91,13 +91,13 @@ public class BahanBakuRepo {
                 connector.checkConnection();
                  result  = connector.executeQueryDML(
                         query, 
-//                     noBahanBaku,
+                     noBahanBaku,
                      namaBahan,
                      keterangan,
                      foto,
                      idBahanBaku);
    
-//                       System.out.println("berhasil");
+                       System.out.println("lmao");
 
             } catch (SQLException e) {
                e.printStackTrace();
@@ -115,7 +115,7 @@ public class BahanBakuRepo {
      public DDLResult deleteBahanBakuAddByID(BahanBaku bahanBaku){
             String query = "DELETE FROM bahan_baku WHERE id_bahan_baku = ?  OR no_bahan_baku = ?";
            
-            int idBahanBaku = bahanBaku.getIdBahanBaku();
+            String idBahanBaku = bahanBaku.getIdBahanBaku();
             String noBahanBaku  = bahanBaku.getNo_bahan_baku();
             
 //            System.out.println(idBahanBaku);
@@ -159,7 +159,7 @@ public class BahanBakuRepo {
                     query);
             
             while(result.next()){
-                     int id_bahan_baku = result.getInt("id_bahan_baku");
+                     String id_bahan_baku = result.getString("id_bahan_baku");
                      String no_bahan_baku = result.getString("no_bahan_baku");
                      String namaBahan = result.getString("nama_bahan");
                      byte[] foto = result.getBytes("foto");
@@ -175,6 +175,33 @@ public class BahanBakuRepo {
         }
         
        return  bahanBakuList;
+    }
+     
+     public BahanBaku getBahanBakuByID(String idBahanBaku){
+       
+       String query = "SELECT * FROM bahan_baku WHERE id_bahan_baku=?";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query,idBahanBaku);
+            
+            if(result.next()){
+                     String id_bahan_baku = result.getString("id_bahan_baku");
+                     String no_bahan_baku = result.getString("no_bahan_baku");
+                     String namaBahan = result.getString("nama_bahan");
+                     byte[] foto = result.getBytes("foto");
+                     String keterangan = result.getString("keterangan");
+                     return new BahanBaku(id_bahan_baku, no_bahan_baku, namaBahan, foto, keterangan);
+
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+       return null;
     }
      
      public List<BahanBaku> getAllBahanBakuByKategori(Kategori kategori){
@@ -194,7 +221,7 @@ public class BahanBakuRepo {
                     query);
             
             while(result.next()){
-                     int id_bahan_baku = result.getInt("id_bahan_baku");
+                     String id_bahan_baku = result.getString("id_bahan_baku");
                      String no_bahan_baku = result.getString("no_bahan_baku");
                      String namaBahan = result.getString("nama_bahan");
                      String keterangan = result.getString("keterangan");
@@ -234,7 +261,7 @@ public class BahanBakuRepo {
                     query, nama_bahan);
             
             while(result.next()){
-                     int id_bahan_baku = result.getInt("id_bahan_baku");
+                     String id_bahan_baku = result.getString("id_bahan_baku");
                      String no_bahan_baku = result.getString("no_bahan_baku");
                      String namaBahan = result.getString("nama_bahan");
                      byte[] foto = result.getBytes("foto");

@@ -109,6 +109,8 @@ public class databaseConnector {
         return resultSet;
     }
    
+
+   
    /**
     * Gunakan ini untuk operasi DML 
     * DML : Create, Delete, Insert, UPDATE

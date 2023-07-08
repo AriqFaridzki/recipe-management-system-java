@@ -4,17 +4,27 @@
  */
 package GUIs;
 
+import Connectors.databaseConnector;
+import java.sql.ResultSet;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import Repositorys.BahanBakuRepo;
+import Objects.*;
+
 /**
  *
  * @author Luminescenents
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    BahanBakuRepo bahanBakuRepo = new BahanBakuRepo();
+    
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,68 +36,435 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sidePanelParent = new javax.swing.JPanel();
+        kategoriBtn = new javax.swing.JButton();
+        bahanBakuBtn = new javax.swing.JButton();
+        resepBtn = new javax.swing.JButton();
+        jenisUnitBtn = new javax.swing.JButton();
+        headerParent = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bahanBakuTable = new javax.swing.JTable();
+        cariByNameBtn = new javax.swing.JButton();
+        cariByNameField = new javax.swing.JTextField();
+        insertDataBtn = new javax.swing.JButton();
+        editDataBaku = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
-        jLabel1.setText("Main Menu");
+        sidePanelParent.setBackground(new java.awt.Color(204, 0, 102));
 
-        jButton2.setText("Lihat Bahan Baku");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        kategoriBtn.setText("Kategori");
+        kategoriBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                kategoriBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Tambah Bahan Baku");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        bahanBakuBtn.setText("Bahan baku");
+        bahanBakuBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                bahanBakuBtnActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(313, 313, 313)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(331, Short.MAX_VALUE))
+        resepBtn.setText("Resep");
+        resepBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resepBtnActionPerformed(evt);
+            }
+        });
+
+        jenisUnitBtn.setText("Jenis Unit Metric");
+        jenisUnitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jenisUnitBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sidePanelParentLayout = new javax.swing.GroupLayout(sidePanelParent);
+        sidePanelParent.setLayout(sidePanelParentLayout);
+        sidePanelParentLayout.setHorizontalGroup(
+            sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidePanelParentLayout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jenisUnitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kategoriBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+            .addGroup(sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidePanelParentLayout.createSequentialGroup()
+                    .addContainerGap(28, Short.MAX_VALUE)
+                    .addComponent(bahanBakuBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(14, 14, 14)))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addGap(62, 62, 62)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+        sidePanelParentLayout.setVerticalGroup(
+            sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidePanelParentLayout.createSequentialGroup()
+                .addGap(215, 215, 215)
+                .addComponent(resepBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addComponent(kategoriBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jenisUnitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sidePanelParentLayout.createSequentialGroup()
+                    .addGap(137, 137, 137)
+                    .addComponent(bahanBakuBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(439, Short.MAX_VALUE)))
         );
+
+        getContentPane().add(sidePanelParent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        headerParent.setBackground(new java.awt.Color(255, 153, 153));
+
+        javax.swing.GroupLayout headerParentLayout = new javax.swing.GroupLayout(headerParent);
+        headerParent.setLayout(headerParentLayout);
+        headerParentLayout.setHorizontalGroup(
+            headerParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        headerParentLayout.setVerticalGroup(
+            headerParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(headerParent, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 1, 1161, 80));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 34, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 586, 1157, -1));
+
+        jTabbedPane1.setBackground(new java.awt.Color(0, 153, 153));
+
+        bahanBakuTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID Bahan", "Nama Bahan", "Keterangan", "Foto", "Option"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        bahanBakuTable.setRowHeight(30);
+        jScrollPane1.setViewportView(bahanBakuTable);
+
+        cariByNameBtn.setText("Cari");
+        cariByNameBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariByNameBtnActionPerformed(evt);
+            }
+        });
+
+        insertDataBtn.setText("Masukan Data Bahan Baru");
+        insertDataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertDataBtnActionPerformed(evt);
+            }
+        });
+
+        editDataBaku.setText("Edit Data");
+        editDataBaku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editDataBakuActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Refresh");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(438, 438, 438)
+                        .addComponent(cariByNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariByNameBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(insertDataBtn)
+                    .addComponent(editDataBaku, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cariByNameBtn)
+                    .addComponent(cariByNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(insertDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editDataBaku, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
+        );
+
+        jTabbedPane1.addTab("tab1", jPanel1);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Resep Page");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(397, 397, 397)
+                .addComponent(jLabel1)
+                .addContainerGap(641, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(jLabel1)
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel2);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Kategori page");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(397, 397, 397)
+                .addComponent(jLabel2)
+                .addContainerGap(615, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(jLabel2)
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab3", jPanel4);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("Jenis Unit page");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(397, 397, 397)
+                .addComponent(jLabel3)
+                .addContainerGap(601, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(jLabel3)
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab4", jPanel5);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1161, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 496, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab5", jPanel6);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1155, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 484, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("tab6", jPanel7);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 47, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    public void refreshGetAllBahanBakuTable(){
+            // TODO add your handling code here:
+        
+         DefaultTableModel model = (DefaultTableModel) bahanBakuTable.getModel();
+        int rowCount = model.getRowCount();
+                    //Remove rows one by one from the end of the table
+                    for (int i = rowCount - 1; i >= 0; i--) {
+                        model.removeRow(i);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
+                   }
+
+        
+       List<BahanBaku> bahanBakuList =  bahanBakuRepo.getAllBahanBaku();
+        if(bahanBakuRepo.getAllBahanBaku() != null){
+            
+                for (int i = 0; i < bahanBakuList.size(); i++) {
+                    BahanBaku bahanBakuValue = bahanBakuList.get(i);
+                    // Lakukan sesuatu dengan setiap objek Mahasiswa
+                    String No_bahan_baku = bahanBakuValue.getNo_bahan_baku();
+                    String Nama_bahan = bahanBakuValue.getNama_bahan();
+                    String getKeterangan = bahanBakuValue.getKeterangan();
+                    model.addRow(new String[] {No_bahan_baku, Nama_bahan, getKeterangan});
+                   
+                }
+
+    }
+}
+     
+    
+    
+    
+    private void bahanBakuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bahanBakuBtnActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(0);
+        refreshGetAllBahanBakuTable();
+    }//GEN-LAST:event_bahanBakuBtnActionPerformed
+
+    private void resepBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resepBtnActionPerformed
+        // TODO add your handling code here:
+         jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_resepBtnActionPerformed
+
+    private void jenisUnitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisUnitBtnActionPerformed
+        // TODO add your handling code here:
+                 jTabbedPane1.setSelectedIndex(3);
+
+    }//GEN-LAST:event_jenisUnitBtnActionPerformed
+
+    private void editDataBakuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDataBakuActionPerformed
+        // TODO add your handling code here:
+        editBahanBaku2 editBahanBaku = new editBahanBaku2();
+        editBahanBaku.setVisible(true);
+    }//GEN-LAST:event_editDataBakuActionPerformed
+
+    private void insertDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertDataBtnActionPerformed
+        // TODO add your handling code here:
+        TambahBahanBakuForm tambahBakuPage = new TambahBahanBakuForm();
+        tambahBakuPage.setVisible(true);
+
+    }//GEN-LAST:event_insertDataBtnActionPerformed
+
+    private void kategoriBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriBtnActionPerformed
+         jTabbedPane1.setSelectedIndex(2);
+
+    }//GEN-LAST:event_kategoriBtnActionPerformed
+
+    
+    
+    private void cariByNameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariByNameBtnActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        BahanBaku cariBahan = new BahanBaku(cariByNameField.getText());
+        
+        
+        DefaultTableModel model = (DefaultTableModel) bahanBakuTable.getModel();
+        int rowCount = model.getRowCount();
+                    //Remove rows one by one from the end of the table
+                    for (int i = rowCount - 1; i >= 0; i--) {
+                        model.removeRow(i);
+
+
+                   }
+
+        
+       List<BahanBaku> bahanBakuList =  bahanBakuRepo.getBahanBakuByName(cariBahan);
+        if(bahanBakuRepo.getAllBahanBaku() != null){
+            
+                for (int i = 0; i < bahanBakuList.size(); i++) {
+                    BahanBaku bahanBakuValue = bahanBakuList.get(i);
+                    // Lakukan sesuatu dengan setiap objek Mahasiswa
+                    String No_bahan_baku = bahanBakuValue.getNo_bahan_baku();
+                    String Nama_bahan = bahanBakuValue.getNama_bahan();
+                    String getKeterangan = bahanBakuValue.getKeterangan();
+                    model.addRow(new String[] {No_bahan_baku, Nama_bahan, getKeterangan});
+                   
+                }
+
+    }
+        
+    }//GEN-LAST:event_cariByNameBtnActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -124,8 +501,30 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton bahanBakuBtn;
+    private javax.swing.JTable bahanBakuTable;
+    private javax.swing.JButton cariByNameBtn;
+    private javax.swing.JTextField cariByNameField;
+    private javax.swing.JButton editDataBaku;
+    private javax.swing.JPanel headerParent;
+    private javax.swing.JButton insertDataBtn;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton jenisUnitBtn;
+    private javax.swing.JButton kategoriBtn;
+    private javax.swing.JButton resepBtn;
+    private javax.swing.JPanel sidePanelParent;
     // End of variables declaration//GEN-END:variables
 }

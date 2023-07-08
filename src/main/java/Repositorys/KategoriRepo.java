@@ -24,7 +24,7 @@ public class KategoriRepo {
          String query = "INSERT INTO kategori_bahan_baku (id_kategori, id_bahan_baku) VALUES (?,?)";
          
          int id_kategori = kategori.getId_kategori();
-         int id_bahan_baku = bahanBaku.getIdBahanBaku();
+         String id_bahan_baku = bahanBaku.getIdBahanBaku();
          
           DDLResult result = null;
                 

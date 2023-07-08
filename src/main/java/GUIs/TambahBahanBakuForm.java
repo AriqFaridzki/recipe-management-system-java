@@ -4,18 +4,42 @@
  */
 package GUIs;
 
+import javax.swing.WindowConstants;
+import Objects.BahanBaku;
+import Repositorys.BahanBakuRepo;
+
+
+
 /**
  *
  * @author Luminescenents
  */
 public class TambahBahanBakuForm extends javax.swing.JFrame {
+    BahanBakuRepo bahanBakuRepo = new BahanBakuRepo();
+    
 
     /**
      * Creates new form BahanBakuForm
      */
     public TambahBahanBakuForm() {
         initComponents();
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
+    
+    public BahanBaku getAlldataBahanFromForms(){
+        brandFields.getText();
+        hargaFields.getText();
+        
+        return new BahanBaku(namaBahanField.getText(),keteranganFields.getText());
+    }
+    
+//    public BahanBakuDetail getAlldataBahanDetailFromForms(){
+//       
+//        
+//        
+//        return new BahanBakuDetail( brandFields.getText(), hargaFields.getText());
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,17 +53,17 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         panelAddBahan = new javax.swing.JPanel();
         namaBahan = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        tambahBtn = new javax.swing.JButton();
         ket = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        namaBahanField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        keteranganFields = new javax.swing.JTextArea();
         namaBahan1 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        hargaFields = new javax.swing.JTextField();
         namaBahan2 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        brandFields = new javax.swing.JTextField();
         namaBahan3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        ambilGambarBtn = new javax.swing.JButton();
         namaBahan4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -53,10 +77,10 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         namaBahan.setForeground(new java.awt.Color(51, 153, 255));
         namaBahan.setText("Nama Bahan");
 
-        jButton1.setText("Tambah Data ! :D");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tambahBtn.setText("Tambah Data ! :D");
+        tambahBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tambahBtnActionPerformed(evt);
             }
         });
 
@@ -64,9 +88,9 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         ket.setForeground(new java.awt.Color(51, 153, 255));
         ket.setText("Keterangan");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        keteranganFields.setColumns(20);
+        keteranganFields.setRows(5);
+        jScrollPane1.setViewportView(keteranganFields);
 
         namaBahan1.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
         namaBahan1.setForeground(new java.awt.Color(51, 153, 255));
@@ -80,10 +104,10 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         namaBahan3.setForeground(new java.awt.Color(51, 153, 255));
         namaBahan3.setText("Pilih Gambar :");
 
-        jButton2.setText("Klik !");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        ambilGambarBtn.setText("Klik !");
+        ambilGambarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ambilGambarBtnActionPerformed(evt);
             }
         });
 
@@ -100,7 +124,7 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                 .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ket, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaBahanField, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaBahan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,15 +132,15 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                         .addComponent(namaBahan3)
                         .addGap(18, 18, 18)
                         .addComponent(namaBahan4))
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaBahan1)
-                    .addComponent(jButton2)
+                    .addComponent(ambilGambarBtn)
                     .addComponent(namaBahan2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(brandFields, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(108, 108, 108))
             .addGroup(panelAddBahanLayout.createSequentialGroup()
                 .addGap(369, 369, 369)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tambahBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAddBahanLayout.setVerticalGroup(
@@ -127,7 +151,7 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                     .addGroup(panelAddBahanLayout.createSequentialGroup()
                         .addComponent(namaBahan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(namaBahanField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(ket)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -135,19 +159,19 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                     .addGroup(panelAddBahanLayout.createSequentialGroup()
                         .addComponent(namaBahan2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(brandFields, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(namaBahan1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(namaBahan3)
                             .addComponent(namaBahan4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(ambilGambarBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tambahBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
 
@@ -197,13 +221,15 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ambilGambarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilGambarBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_ambilGambarBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void tambahBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        BahanBaku bahanBaku = getAlldataBahanFromForms();
+        bahanBakuRepo.addBahanBaku(bahanBaku);
+    }//GEN-LAST:event_tambahBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,22 +268,22 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton ambilGambarBtn;
+    private javax.swing.JTextField brandFields;
+    private javax.swing.JTextField hargaFields;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel ket;
+    private javax.swing.JTextArea keteranganFields;
     private javax.swing.JLabel namaBahan;
     private javax.swing.JLabel namaBahan1;
     private javax.swing.JLabel namaBahan2;
     private javax.swing.JLabel namaBahan3;
     private javax.swing.JLabel namaBahan4;
+    private javax.swing.JTextField namaBahanField;
     private javax.swing.JPanel panelAddBahan;
+    private javax.swing.JButton tambahBtn;
     // End of variables declaration//GEN-END:variables
 }

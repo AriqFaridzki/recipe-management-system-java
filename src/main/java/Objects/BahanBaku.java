@@ -9,14 +9,25 @@ package Objects;
  * @author Luminescenents
  */
 public class BahanBaku {
-    private int id_bahan_baku;
+    private String id_bahan_baku;
     private String no_bahan_baku;
     private String nama_bahan;
     private byte[] foto;
     private String keterangan;
     private String nama_kategori;
 
-    public BahanBaku(int id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
+    
+       public BahanBaku(String nama_bahan) {
+        this.nama_bahan = nama_bahan;
+    }
+    public BahanBaku(String id_bahan_baku, String no_bahan_baku, String nama_bahan, String keterangan) {
+        this.id_bahan_baku = id_bahan_baku;
+        this.no_bahan_baku = no_bahan_baku;
+        this.nama_bahan = nama_bahan;
+        this.keterangan = keterangan;
+    }
+
+    public BahanBaku(String id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
         this.id_bahan_baku = id_bahan_baku;
         this.no_bahan_baku = no_bahan_baku;
         this.nama_bahan = nama_bahan;
@@ -24,7 +35,7 @@ public class BahanBaku {
         this.keterangan = keterangan;
     }
     
-    public BahanBaku(int id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan, String nama_kategori) {
+    public BahanBaku(String id_bahan_baku, String no_bahan_baku, String nama_bahan, byte[] foto, String keterangan, String nama_kategori) {
         this.id_bahan_baku = id_bahan_baku;
         this.no_bahan_baku = no_bahan_baku;
         this.nama_bahan = nama_bahan;
@@ -35,7 +46,7 @@ public class BahanBaku {
     
     
 
-    public BahanBaku(int id_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
+    public BahanBaku(String id_bahan_baku, String nama_bahan, byte[] foto, String keterangan) {
         this.id_bahan_baku = id_bahan_baku;
         this.nama_bahan = nama_bahan;
         this.foto = foto;
@@ -47,22 +58,22 @@ public class BahanBaku {
          this.keterangan = keterangan;
     }
 
-    
-    public BahanBaku(int id_bahan_baku) {
-        this.id_bahan_baku = id_bahan_baku;
-    }
 
-    public BahanBaku(int id_bahan_baku, String nama_bahan, String keterangan) {
+
+    
+ 
+
+    public BahanBaku(String id_bahan_baku, String nama_bahan, String keterangan) {
         this.id_bahan_baku = id_bahan_baku;
         this.nama_bahan = nama_bahan;
         this.keterangan = keterangan;
     }
 
-    public int getId_bahan_baku() {
+    public String getId_bahan_baku() {
         return id_bahan_baku;
     }
 
-    public void setId_bahan_baku(int id_bahan_baku) {
+    public void setId_bahan_baku(String id_bahan_baku) {
         this.id_bahan_baku = id_bahan_baku;
     }
 
@@ -91,11 +102,11 @@ public class BahanBaku {
     }
    
     
-    public int getIdBahanBaku() {
+    public String getIdBahanBaku() {
         return id_bahan_baku;
     }
 
-    public void setIdBahanBaku(int id_bahan_baku) {
+    public void setIdBahanBaku(String id_bahan_baku) {
         this.id_bahan_baku = id_bahan_baku;
     }
 

@@ -86,7 +86,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ket" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="422" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="0" min="-2" pref="420" max="-2" attributes="0"/>
+                          <Component id="namaBahanField" alignment="0" min="-2" pref="420" max="-2" attributes="0"/>
                           <Component id="namaBahan" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="138" max="32767" attributes="0"/>
@@ -96,17 +96,17 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="namaBahan4" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTextField3" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="hargaFields" min="-2" pref="220" max="-2" attributes="0"/>
                           <Component id="namaBahan1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="ambilGambarBtn" min="-2" max="-2" attributes="0"/>
                           <Component id="namaBahan2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField4" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="brandFields" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="192" max="-2" attributes="0"/>
+                      <Component id="tambahBtn" min="-2" pref="192" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -119,7 +119,7 @@
                           <Group type="102" attributes="0">
                               <Component id="namaBahan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="namaBahanField" min="-2" pref="37" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="ket" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -128,22 +128,22 @@
                           <Group type="102" attributes="0">
                               <Component id="namaBahan2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField4" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="brandFields" min="-2" pref="37" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="namaBahan1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="hargaFields" min="-2" pref="37" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="namaBahan3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="namaBahan4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="ambilGambarBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="47" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="tambahBtn" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -161,12 +161,12 @@
                 <Property name="text" type="java.lang.String" value="Nama Bahan"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="tambahBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tambah Data ! :D"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tambahBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ket">
@@ -180,7 +180,7 @@
                 <Property name="text" type="java.lang.String" value="Keterangan"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="namaBahanField">
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
@@ -189,7 +189,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
+                <Component class="javax.swing.JTextArea" name="keteranganFields">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -208,7 +208,7 @@
                 <Property name="text" type="java.lang.String" value="Harga"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField3">
+            <Component class="javax.swing.JTextField" name="hargaFields">
             </Component>
             <Component class="javax.swing.JLabel" name="namaBahan2">
               <Properties>
@@ -221,7 +221,7 @@
                 <Property name="text" type="java.lang.String" value="Brand"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField4">
+            <Component class="javax.swing.JTextField" name="brandFields">
             </Component>
             <Component class="javax.swing.JLabel" name="namaBahan3">
               <Properties>
@@ -234,12 +234,12 @@
                 <Property name="text" type="java.lang.String" value="Pilih Gambar :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="ambilGambarBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Klik !"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambilGambarBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="namaBahan4">
