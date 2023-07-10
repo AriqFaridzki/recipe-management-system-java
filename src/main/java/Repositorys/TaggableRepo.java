@@ -20,8 +20,8 @@ public class TaggableRepo {
           databaseConnector connector = new databaseConnector();
       
       public DDLResult addTaggable(Taggable taggable){
-            String query = "INSERT INTO kategori (tipe_taggable) VALUES (?)";
-            String queryUpdate = "UPDATE kategori SET no_taggable = ? WHERE id_taggable = ?  ";
+            String query = "INSERT INTO taggable (tipe_taggable) VALUES (?)";
+            String queryUpdate = "UPDATE taggable SET no_taggable = ? WHERE id_taggable = ?  ";
            
             
             
@@ -105,11 +105,12 @@ public class TaggableRepo {
        return result;
     }
      
-     public DDLResult deleteTaggableByID(Taggable taggable){
-            String query = "DELETE FROM taggable WHERE id_taggable = ?  OR no_taggable = ?";
+     public DDLResult deleteTaggableByIDName(Taggable taggable){
+            String query = "DELETE FROM taggable WHERE id_taggable = ?  OR no_taggable = ? OR tipe_taggable = ?";
            
             int idTaggable = taggable.getId_taggable();
             String noTaggable  = taggable.getNo_taggable();
+            String tipe_taggable  = taggable.getTipe_taggable();
             
 //            System.out.println(idBahanBaku);
 //            System.out.println(noBahanBaku);
@@ -154,7 +155,7 @@ public class TaggableRepo {
             while(result.next()){
                      int id_taggable = result.getInt("id_taggable");
                      String no_taggable = result.getString("no_taggable");
-                     String nama_taggable = result.getString("nama_taggable");
+                     String nama_taggable = result.getString("tipe_taggable");
                      Taggable taggable = new Taggable(
                              id_taggable, 
                              no_taggable, 
@@ -172,4 +173,35 @@ public class TaggableRepo {
        return  taggableList;
     }
     
+     public Taggable getTaggableByName(String  taggable){
+       List<Taggable> taggableList = new ArrayList<>();
+       
+       String query = "SELECT * FROM taggable WHERE tipe_taggable=?";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, taggable);
+            
+            while(result.next()){
+                     int id_taggable = result.getInt("id_taggable");
+                     String no_taggable = result.getString("no_taggable");
+                     String nama_taggable = result.getString("tipe_taggable");
+                     return new Taggable(
+                             id_taggable, 
+                             no_taggable, 
+                             nama_taggable);
+                     
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return  null;
+    }
+     
+   
 }

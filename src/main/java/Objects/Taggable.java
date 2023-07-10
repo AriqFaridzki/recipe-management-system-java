@@ -47,5 +47,10 @@ public class Taggable {
     public void setTipe_taggable(String tipe_taggable) {
         this.tipe_taggable = tipe_taggable;
     }
+
+
+    public Taggable(String tipe_taggable) {
+        this.tipe_taggable = tipe_taggable;
+    }
     
 }

@@ -4,12 +4,22 @@
  */
 package GUIs;
 
-import Connectors.databaseConnector;
-import java.sql.ResultSet;
+
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import Repositorys.BahanBakuRepo;
+import Repositorys.*;
 import Objects.*;
+import Helper.*;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.swing.JRViewer;
+
+
 
 /**
  *
@@ -18,13 +28,16 @@ import Objects.*;
 public class MainMenu extends javax.swing.JFrame {
 
     BahanBakuRepo bahanBakuRepo = new BahanBakuRepo();
-    
+    jenisMetricRepo  jenisMetricRepo = new jenisMetricRepo();
+    TableConfig tableConfig = new TableConfig();
+    tableRefresher tableRefresher = new tableRefresher();
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
         setLocationRelativeTo(null);
+       tableRefresher.refreshGetAllDataTableBahan(bahanBakuTable);
     }
 
     /**
@@ -42,9 +55,10 @@ public class MainMenu extends javax.swing.JFrame {
         resepBtn = new javax.swing.JButton();
         jenisUnitBtn = new javax.swing.JButton();
         headerParent = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        bahanBaku = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         bahanBakuTable = new javax.swing.JTable();
         cariByNameBtn = new javax.swing.JButton();
@@ -52,12 +66,31 @@ public class MainMenu extends javax.swing.JFrame {
         insertDataBtn = new javax.swing.JButton();
         editDataBaku = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        report = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        cariByNameField1 = new javax.swing.JTextField();
+        cariByNameBtn1 = new javax.swing.JButton();
+        insertDataBtn1 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        editDataBaku1 = new javax.swing.JButton();
+        kategoriPanel = new javax.swing.JPanel();
+        cariKategoriField = new javax.swing.JTextField();
+        cariKategoriBtn = new javax.swing.JButton();
+        addKategoriBtn = new javax.swing.JButton();
+        refreshKategori = new javax.swing.JButton();
+        editKategori = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        kategoriTable = new javax.swing.JTable();
+        unitMetric = new javax.swing.JPanel();
+        cariJenisMetricField = new javax.swing.JTextField();
+        cariBtnUnit = new javax.swing.JButton();
+        insertDataBtnUnit = new javax.swing.JButton();
+        refreshBtnUnit = new javax.swing.JButton();
+        editDataBtnUnit = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jenisUnitTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -65,7 +98,7 @@ public class MainMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        sidePanelParent.setBackground(new java.awt.Color(204, 0, 102));
+        sidePanelParent.setBackground(new java.awt.Color(255, 102, 102));
 
         kategoriBtn.setText("Kategori");
         kategoriBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +154,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(kategoriBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jenisUnitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(sidePanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidePanelParentLayout.createSequentialGroup()
                     .addGap(137, 137, 137)
@@ -131,26 +164,36 @@ public class MainMenu extends javax.swing.JFrame {
 
         getContentPane().add(sidePanelParent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        headerParent.setBackground(new java.awt.Color(255, 153, 153));
+        headerParent.setBackground(new java.awt.Color(255, 102, 102));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Recipe Management Sytem :D");
 
         javax.swing.GroupLayout headerParentLayout = new javax.swing.GroupLayout(headerParent);
         headerParent.setLayout(headerParentLayout);
         headerParentLayout.setHorizontalGroup(
             headerParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(headerParentLayout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(555, Short.MAX_VALUE))
         );
         headerParentLayout.setVerticalGroup(
             headerParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerParentLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
-        getContentPane().add(headerParent, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 1, 1161, 80));
+        getContentPane().add(headerParent, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 1, 1170, 80));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1157, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,124 +246,331 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton6.setText("Refresh");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        report.setText("report");
+        report.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout bahanBakuLayout = new javax.swing.GroupLayout(bahanBaku);
+        bahanBaku.setLayout(bahanBakuLayout);
+        bahanBakuLayout.setHorizontalGroup(
+            bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bahanBakuLayout.createSequentialGroup()
+                .addGroup(bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bahanBakuLayout.createSequentialGroup()
                         .addGap(438, 438, 438)
                         .addComponent(cariByNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cariByNameBtn))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(bahanBakuLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(insertDataBtn)
                     .addComponent(editDataBaku, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(report))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        bahanBakuLayout.setVerticalGroup(
+            bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bahanBakuLayout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cariByNameBtn)
                     .addComponent(cariByNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(bahanBakuLayout.createSequentialGroup()
                         .addComponent(insertDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(editDataBaku, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(editDataBaku, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(report)))
                 .addGap(15, 15, 15))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("tab1", bahanBaku);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Resep Page");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        cariByNameBtn1.setText("Cari");
+        cariByNameBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariByNameBtn1ActionPerformed(evt);
+            }
+        });
+
+        insertDataBtn1.setText("Masukan Resep Baru");
+        insertDataBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertDataBtn1ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Refresh");
+
+        editDataBaku1.setText("Edit Data");
+        editDataBaku1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editDataBaku1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(jLabel1)
-                .addContainerGap(641, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cariByNameField1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariByNameBtn1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(insertDataBtn1)
+                    .addComponent(editDataBaku1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel1)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cariByNameBtn1)
+                    .addComponent(cariByNameField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(insertDataBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editDataBaku1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel2);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Kategori page");
+        cariKategoriBtn.setText("Cari");
+        cariKategoriBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariKategoriBtnActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(jLabel2)
-                .addContainerGap(615, Short.MAX_VALUE))
+        addKategoriBtn.setText("Masukan Kategori Baru");
+        addKategoriBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addKategoriBtnActionPerformed(evt);
+            }
+        });
+
+        refreshKategori.setText("Refresh");
+
+        editKategori.setText("Edit Data");
+        editKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editKategoriActionPerformed(evt);
+            }
+        });
+
+        kategoriTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "No Kategori", "Nama_Kategori", "Tipe Taggable"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(kategoriTable);
+
+        javax.swing.GroupLayout kategoriPanelLayout = new javax.swing.GroupLayout(kategoriPanel);
+        kategoriPanel.setLayout(kategoriPanelLayout);
+        kategoriPanelLayout.setHorizontalGroup(
+            kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kategoriPanelLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kategoriPanelLayout.createSequentialGroup()
+                        .addComponent(cariKategoriField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariKategoriBtn))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
+                .addGroup(kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addKategoriBtn)
+                    .addComponent(editKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel2)
-                .addContainerGap(225, Short.MAX_VALUE))
+        kategoriPanelLayout.setVerticalGroup(
+            kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kategoriPanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cariKategoriBtn)
+                    .addComponent(cariKategoriField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kategoriPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(kategoriPanelLayout.createSequentialGroup()
+                        .addComponent(addKategoriBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(refreshKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel4);
+        jTabbedPane1.addTab("tab3", kategoriPanel);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Jenis Unit page");
+        cariJenisMetricField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariJenisMetricFieldActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(jLabel3)
-                .addContainerGap(601, Short.MAX_VALUE))
+        cariBtnUnit.setText("Cari");
+        cariBtnUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariBtnUnitActionPerformed(evt);
+            }
+        });
+
+        insertDataBtnUnit.setText("Masukan Jenis Unit Baru");
+        insertDataBtnUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertDataBtnUnitActionPerformed(evt);
+            }
+        });
+
+        refreshBtnUnit.setText("Refresh");
+        refreshBtnUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnUnitActionPerformed(evt);
+            }
+        });
+
+        editDataBtnUnit.setText("Edit Data");
+        editDataBtnUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editDataBtnUnitActionPerformed(evt);
+            }
+        });
+
+        jenisUnitTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jenisUnitTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "No Metric", "Nama Unit", "Keterangan", "Option"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jenisUnitTable.setFocusCycleRoot(true);
+        jenisUnitTable.setRowHeight(35);
+        jScrollPane4.setViewportView(jenisUnitTable);
+
+        javax.swing.GroupLayout unitMetricLayout = new javax.swing.GroupLayout(unitMetric);
+        unitMetric.setLayout(unitMetricLayout);
+        unitMetricLayout.setHorizontalGroup(
+            unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(unitMetricLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(unitMetricLayout.createSequentialGroup()
+                        .addComponent(cariJenisMetricField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cariBtnUnit))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
+                .addGroup(unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(insertDataBtnUnit)
+                    .addComponent(editDataBtnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshBtnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel3)
-                .addContainerGap(225, Short.MAX_VALUE))
+        unitMetricLayout.setVerticalGroup(
+            unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(unitMetricLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cariBtnUnit)
+                    .addComponent(cariJenisMetricField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(unitMetricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(unitMetricLayout.createSequentialGroup()
+                        .addComponent(insertDataBtnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(refreshBtnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editDataBtnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab4", jPanel5);
+        jTabbedPane1.addTab("tab4", unitMetric);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1161, Short.MAX_VALUE)
+            .addGap(0, 948, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 521, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab5", jPanel6);
@@ -329,7 +579,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1155, Short.MAX_VALUE)
+            .addGap(0, 942, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +597,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -360,42 +610,13 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void refreshGetAllBahanBakuTable(){
-            // TODO add your handling code here:
-        
-         DefaultTableModel model = (DefaultTableModel) bahanBakuTable.getModel();
-        int rowCount = model.getRowCount();
-                    //Remove rows one by one from the end of the table
-                    for (int i = rowCount - 1; i >= 0; i--) {
-                        model.removeRow(i);
 
-
-                   }
-
-        
-       List<BahanBaku> bahanBakuList =  bahanBakuRepo.getAllBahanBaku();
-        if(bahanBakuRepo.getAllBahanBaku() != null){
-            
-                for (int i = 0; i < bahanBakuList.size(); i++) {
-                    BahanBaku bahanBakuValue = bahanBakuList.get(i);
-                    // Lakukan sesuatu dengan setiap objek Mahasiswa
-                    String No_bahan_baku = bahanBakuValue.getNo_bahan_baku();
-                    String Nama_bahan = bahanBakuValue.getNama_bahan();
-                    String getKeterangan = bahanBakuValue.getKeterangan();
-                    model.addRow(new String[] {No_bahan_baku, Nama_bahan, getKeterangan});
-                   
-                }
-
-    }
-}
-     
-    
     
     
     private void bahanBakuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bahanBakuBtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(0);
-        refreshGetAllBahanBakuTable();
+        tableRefresher.refreshGetAllDataTableBahan(bahanBakuTable);
     }//GEN-LAST:event_bahanBakuBtnActionPerformed
 
     private void resepBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resepBtnActionPerformed
@@ -406,6 +627,9 @@ public class MainMenu extends javax.swing.JFrame {
     private void jenisUnitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisUnitBtnActionPerformed
         // TODO add your handling code here:
                  jTabbedPane1.setSelectedIndex(3);
+                 tableRefresher.refreshGetAllDataTableJenisUnit(jenisUnitTable);
+                 
+                 
 
     }//GEN-LAST:event_jenisUnitBtnActionPerformed
 
@@ -424,11 +648,11 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void kategoriBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriBtnActionPerformed
          jTabbedPane1.setSelectedIndex(2);
-
+         
+        tableRefresher.refreshGetAllDataTableKategori(kategoriTable);
+    
     }//GEN-LAST:event_kategoriBtnActionPerformed
 
-    
-    
     private void cariByNameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariByNameBtnActionPerformed
         // TODO add your handling code here:
         
@@ -437,14 +661,9 @@ public class MainMenu extends javax.swing.JFrame {
         BahanBaku cariBahan = new BahanBaku(cariByNameField.getText());
         
         
+
         DefaultTableModel model = (DefaultTableModel) bahanBakuTable.getModel();
-        int rowCount = model.getRowCount();
-                    //Remove rows one by one from the end of the table
-                    for (int i = rowCount - 1; i >= 0; i--) {
-                        model.removeRow(i);
-
-
-                   }
+         tableConfig.removeAllData(model);
 
         
        List<BahanBaku> bahanBakuList =  bahanBakuRepo.getBahanBakuByName(cariBahan);
@@ -463,6 +682,119 @@ public class MainMenu extends javax.swing.JFrame {
     }
         
     }//GEN-LAST:event_cariByNameBtnActionPerformed
+
+    private void cariByNameBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariByNameBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cariByNameBtn1ActionPerformed
+
+    private void insertDataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertDataBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_insertDataBtn1ActionPerformed
+
+    private void editDataBaku1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDataBaku1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editDataBaku1ActionPerformed
+
+    private void cariKategoriBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariKategoriBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cariKategoriBtnActionPerformed
+
+    private void addKategoriBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addKategoriBtnActionPerformed
+        // TODO add your handling code here:
+        
+        tambahKategori tambahKategori = new tambahKategori();
+        tambahKategori.setVisible(true);
+    }//GEN-LAST:event_addKategoriBtnActionPerformed
+
+    private void editKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editKategoriActionPerformed
+        // TODO add your handling code here:
+        editKategori editKategori = new editKategori();
+        editKategori.setVisible(true);
+    }//GEN-LAST:event_editKategoriActionPerformed
+
+    private void cariBtnUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariBtnUnitActionPerformed
+        // TODO add your handling code here:
+          DefaultTableModel model = (DefaultTableModel) jenisUnitTable.getModel();
+          tableConfig.removeAllData(model);
+       
+        
+        
+        
+        List<JenisMetric> jenisMetricList =   jenisMetricRepo.getJenisMetricByName(cariJenisMetricField.getText());
+        if(jenisMetricList != null){
+            
+                for (int i = 0; i < jenisMetricList.size(); i++) {
+                    JenisMetric jenisMetricValue = jenisMetricList.get(i);
+                    // Lakukan sesuatu dengan setiap objek Mahasiswa
+                    String no_metric = jenisMetricValue.getNo_metric();
+                    String nama_metric = jenisMetricValue.getNama_metric();
+                    String keterangan = jenisMetricValue.getKeterangan();
+                    model.addRow(new String[] {no_metric, nama_metric, keterangan});
+                   
+                }
+
+    }
+    }//GEN-LAST:event_cariBtnUnitActionPerformed
+
+    private void insertDataBtnUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertDataBtnUnitActionPerformed
+        // TODO add your handling code here:
+        tambahDataJenisUnit tambahDataJenisUnit = new tambahDataJenisUnit();
+        tambahDataJenisUnit.setVisible(true);
+    }//GEN-LAST:event_insertDataBtnUnitActionPerformed
+
+    private void editDataBtnUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDataBtnUnitActionPerformed
+        // TODO add your handling code here:
+        
+        editDataJenisUnit editDataJenisUnit = new editDataJenisUnit();
+        editDataJenisUnit.setVisible(true);
+    }//GEN-LAST:event_editDataBtnUnitActionPerformed
+
+    private void cariJenisMetricFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariJenisMetricFieldActionPerformed
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_cariJenisMetricFieldActionPerformed
+
+    private void refreshBtnUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnUnitActionPerformed
+        // TODO add your handling code here:
+        tableRefresher.refreshGetAllDataTableJenisUnit(jenisUnitTable);
+    }//GEN-LAST:event_refreshBtnUnitActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:\
+        tableRefresher.refreshGetAllDataTableBahan(bahanBakuTable);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportActionPerformed
+        // TODO add your handling code here:
+    try {
+
+
+        // Create a JRDataSource from the ResultSet
+//        JRResultSetDataSource jrRS = new JRResultSetDataSource(the resut);
+
+        // Compile the JasperReport file
+//        JasperReport jasperReport = JasperCompileManager.compileReport("testReport2.jrxml");
+
+        // Fill the report with data
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrRS);
+
+        // Create a JRViewer to display the report
+//        JRViewer jrViewer = new JRViewer(jasperPrint);
+
+        // Create a JDialog to show the report
+//        JDialog dialog = new JDialog();
+//        dialog.setTitle("Jasper Report");
+//        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//        dialog.getContentPane().add(jrViewer);
+//        dialog.pack();
+//        dialog.setLocationRelativeTo(null);
+//        dialog.setVisible(true);
+
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error generating report: " + e.getMessage());
+    }
+    }//GEN-LAST:event_reportActionPerformed
 
     
     /**
@@ -501,30 +833,50 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addKategoriBtn;
+    private javax.swing.JPanel bahanBaku;
     private javax.swing.JButton bahanBakuBtn;
     private javax.swing.JTable bahanBakuTable;
+    private javax.swing.JButton cariBtnUnit;
     private javax.swing.JButton cariByNameBtn;
+    private javax.swing.JButton cariByNameBtn1;
     private javax.swing.JTextField cariByNameField;
+    private javax.swing.JTextField cariByNameField1;
+    private javax.swing.JTextField cariJenisMetricField;
+    private javax.swing.JButton cariKategoriBtn;
+    private javax.swing.JTextField cariKategoriField;
     private javax.swing.JButton editDataBaku;
+    private javax.swing.JButton editDataBaku1;
+    private javax.swing.JButton editDataBtnUnit;
+    private javax.swing.JButton editKategori;
     private javax.swing.JPanel headerParent;
     private javax.swing.JButton insertDataBtn;
+    private javax.swing.JButton insertDataBtn1;
+    private javax.swing.JButton insertDataBtnUnit;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton jenisUnitBtn;
+    private javax.swing.JTable jenisUnitTable;
     private javax.swing.JButton kategoriBtn;
+    private javax.swing.JPanel kategoriPanel;
+    private javax.swing.JTable kategoriTable;
+    private javax.swing.JButton refreshBtnUnit;
+    private javax.swing.JButton refreshKategori;
+    private javax.swing.JButton report;
     private javax.swing.JButton resepBtn;
     private javax.swing.JPanel sidePanelParent;
+    private javax.swing.JPanel unitMetric;
     // End of variables declaration//GEN-END:variables
 }

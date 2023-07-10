@@ -18,7 +18,7 @@ public class testing {
         byte[] foto = null;
         
 //        BahanBaku bahanBaku = new BahanBaku(1, "Buncis", "Hijau Buncis enakksss");
-        BahanBaku bahanBaku = new BahanBaku(2, "BBK2", "Cabao" ,foto,"asda");
+        BahanBaku bahanBaku = new BahanBaku("2", "BBK2", "Cabao" ,foto,"asda");
         BahanBakuRepo repo = new BahanBakuRepo();
         
 //        DDLResult result = repo.addBahanBaku(bahanBaku);
@@ -30,7 +30,7 @@ public class testing {
                         
                         BahanBaku bahanBakuResult = bahanBakuList.get(i);
                         
-                        int idBahanBaku = bahanBakuResult.getIdBahanBaku();
+                        String idBahanBaku = bahanBakuResult.getIdBahanBaku();
                         String noBahanBaku  = bahanBakuResult.getNo_bahan_baku();
                         String namaBahan = bahanBakuResult.getNamaBahan();
                         String keterangan = bahanBakuResult.getKeterangan();

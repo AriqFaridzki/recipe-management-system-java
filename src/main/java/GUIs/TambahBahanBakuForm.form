@@ -48,7 +48,7 @@
                           <Component id="jLabel2" min="-2" pref="260" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="68" max="32767" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -89,20 +89,25 @@
                           <Component id="namaBahanField" alignment="0" min="-2" pref="420" max="-2" attributes="0"/>
                           <Component id="namaBahan" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="138" max="32767" attributes="0"/>
+                      <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="hargaFields" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="namaBahan3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="namaBahan4" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="hargaFields" min="-2" pref="220" max="-2" attributes="0"/>
                           <Component id="namaBahan1" min="-2" max="-2" attributes="0"/>
                           <Component id="ambilGambarBtn" min="-2" max="-2" attributes="0"/>
                           <Component id="namaBahan2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="brandFields" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                      <EmptySpace min="39" pref="6" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="namaBahan5" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboBoxMetric" min="-2" pref="151" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
@@ -130,9 +135,15 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="brandFields" min="-2" pref="37" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="namaBahan1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="namaBahan1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="namaBahan5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="hargaFields" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="hargaFields" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="comboBoxMetric" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="namaBahan3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -251,6 +262,35 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="none"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboBoxMetric">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="comboBoxMetricFocusGained"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="namaBahan5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Poppins Medium" size="16" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="99" red="33" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Unit"/>
               </Properties>
             </Component>
           </SubComponents>

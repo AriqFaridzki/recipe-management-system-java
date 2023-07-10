@@ -82,10 +82,11 @@ public class KategoriRepo {
 }
       
       public DDLResult addKategori(Kategori kategori){
-            String query = "INSERT INTO kategori (nama_kategori) VALUES (?)";
+            String query = "INSERT INTO kategori (nama_kategori, id_taggable) VALUES (?,?)";
             String queryUpdate = "UPDATE kategori SET no_kategori = ? WHERE id_kategori = ?  ";
        
             String nama_Kategori = kategori.getNama_Kategori();
+            int id_Taggable = kategori.getId_taggable();
             
 //            System.out.println(noBahanBaku);
 //            System.out.println(namaBahan);
@@ -100,7 +101,8 @@ public class KategoriRepo {
                  result  = connector.executeQueryDML(
                         query, 
                     
-                        nama_Kategori);
+                        nama_Kategori,
+                        id_Taggable);
                  
                  int id_kategori = result.getGeneratedKeys();
                  String no_kategori  = "KTG" + id_kategori;
@@ -125,7 +127,7 @@ public class KategoriRepo {
        return result;
     } // not tested
         
-     public DDLResult updateBahanBakuById(Kategori kategori){
+     public DDLResult updateKategoriById(Kategori kategori){
             String query = "UPDATE kategori SET nama_kategori=? WHERE id_kategori = ? ";
            
 
@@ -162,7 +164,7 @@ public class KategoriRepo {
        return result;
     }
      
-     public DDLResult deleteBahanBakuAddByID(Kategori kategori){
+     public DDLResult deleteKategoriByID(Kategori kategori){
             String query = "DELETE FROM kategori WHERE id_kategori = ?  OR no_kategori = ?";
            
             int id_kategori = kategori.getId_kategori();
@@ -198,10 +200,13 @@ public class KategoriRepo {
        return result;
     }
      
-     public List<Kategori> getAllBahanBaku(){
+     public List<Kategori> getAllKategori(){
        List<Kategori> kategoriList = new ArrayList<>();
        
-       String query = "SELECT * FROM kategori";
+//       String query = "SELECT * FROM kategori";
+       String query = "SELECT kategori.id_kategori, kategori.no_kategori, kategori.nama_kategori, taggable.tipe_taggable" +
+                                " FROM kategori" +
+                                " INNER JOIN taggable ON taggable.id_taggable = kategori.id_taggable";
 
         try {
             connector.checkConnection();
@@ -212,10 +217,12 @@ public class KategoriRepo {
                      int id_kategori = result.getInt("id_kategori");
                      String no_kategori = result.getString("no_kategori");
                      String nama_kategori = result.getString("nama_kategori");
+                     String tipe_taggable = result.getString("tipe_taggable");
                      Kategori kategori = new Kategori(
                              id_kategori, 
                              no_kategori, 
-                             nama_kategori);
+                             nama_kategori,
+                     tipe_taggable);
                      
                      kategoriList.add(kategori);
             }
@@ -229,7 +236,108 @@ public class KategoriRepo {
        return  kategoriList;
     }
      
+     public List<Kategori> getAllKategoriByName(String nama_Kategori){
+       List<Kategori> kategoriList = new ArrayList<>();
+       
+//       String query = "SELECT * FROM kategori";
+       String query = "SELECT kategori.id_kategori, kategori.no_kategori, kategori.nama_kategori, taggable.tipe_taggable" +
+                                " FROM kategori" +
+                                " INNER JOIN taggable ON taggable.id_taggable = kategori.id_taggable"
+                                +" WHERE nama_kategori LIKE CONCAT(?, '%')";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, nama_Kategori);
+            
+            while(result.next()){
+                     int id_kategori = result.getInt("id_kategori");
+                     String no_kategori = result.getString("no_kategori");
+                     String nama_kategori = result.getString("nama_kategori");
+                     String tipe_taggable = result.getString("tipe_taggable");
+                     Kategori kategori = new Kategori(
+                             id_kategori, 
+                             no_kategori, 
+                             nama_kategori,
+                     tipe_taggable);
+                     
+                     kategoriList.add(kategori);
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return  kategoriList;
+    }
      
+     public Kategori getAllKategoriByID(int id_taggable) {
+       
+//       String query = "SELECT * FROM kategori";
+       String query = "SELECT kategori.id_kategori, kategori.no_kat egori, kategori.nama_kategori, taggable.tipe_taggable" +
+                                " FROM kategori" +
+                                " INNER JOIN taggable ON taggable.id_taggable = kategori.id_taggable"
+                                +" WHERE kategori.id_kategori=?";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, id_taggable);
+            
+            while(result.next()){
+                     int id_kategori = result.getInt("id_kategori");
+                     String no_kategori = result.getString("no_kategori");
+                     String nama_kategori = result.getString("nama_kategori");
+                     String tipe_taggable = result.getString("tipe_taggable");
+                     return new Kategori(id_kategori, no_kategori, nama_kategori, tipe_taggable);
+                     
+                     
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return null;
+    }
+     
+     public Kategori getAllKategoriById(int id_kategoris){
+       
+//       String query = "SELECT * FROM kategori";
+       String query = "SELECT kategori.id_kategori, kategori.no_kategori, kategori.nama_kategori, taggable.tipe_taggable" +
+                                " FROM kategori" +
+                                " INNER JOIN taggable ON taggable.id_taggable = kategori.id_taggable"
+                                +" WHERE nama_kategori = ?";
+
+        try {
+            connector.checkConnection();
+;
+            ResultSet result = connector.executeQueryRead(
+                    query, id_kategoris);
+            
+            while(result.next()){
+                     int id_kategori = result.getInt("id_kategori");
+                     String no_kategori = result.getString("no_kategori");
+                     String nama_kategori = result.getString("nama_kategori");
+                     String tipe_taggable = result.getString("tipe_taggable");
+                      System.out.println(result.getString("nama_kategori"));
+                     return new Kategori(id_kategori, no_kategori, nama_kategori, tipe_taggable);
+                     
+            }
+            
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return  null;
+    }
      
 }
 

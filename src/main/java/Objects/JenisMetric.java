@@ -26,6 +26,11 @@ public class JenisMetric {
         return no_metric;
     }
 
+    public JenisMetric(String nama_metric, String keterangan) {
+        this.nama_metric = nama_metric;
+        this.keterangan = keterangan;
+    }
+
     public void setNo_metric(String no_metric) {
         this.no_metric = no_metric;
     }

@@ -10,6 +10,7 @@ import java.sql.SQLException;
  * @author Luminescenents
  */
 import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 public class TableConfig {
     databaseConnector connector = new databaseConnector();
     
@@ -34,10 +35,17 @@ public class TableConfig {
     }
     
 
-    
-    
+  
     public static void main(String [] args){
         TableConfig test = new TableConfig();
         System.out.println(test.getDbTableId("bahan_baku", "id_bahan_baku", "7"));
+    }
+    
+    public void removeAllData(DefaultTableModel model ){
+            int rowCount = model.getRowCount();
+                    //Remove rows one by one from the end of the table
+                    for (int i = rowCount - 1; i >= 0; i--) {
+                        model.removeRow(i);
+                   }
     }
 }

@@ -13,6 +13,19 @@ import Objects.Kategori;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Luminescenents
@@ -20,13 +33,21 @@ import java.util.List;
 public class BahanBakuRepo {
  databaseConnector connector = new databaseConnector();
 // Connection connection = connector.getConnection();
+ private static int GeneratedKeys = 0;
+ private JasperPrint jasperPrint;
+ 
+ public static int getGeneratedKeys(){
+     return GeneratedKeys;
+ }
+ 
+ public void generateReport() {
+    
+}
     
      public DDLResult addBahanBaku(BahanBaku bahanBaku){
             String query = "INSERT INTO bahan_baku (nama_bahan, foto, keterangan) VALUES (?,?,?)";
             String queryUpdate = "UPDATE bahan_baku SET no_bahan_baku = ? WHERE id_bahan_baku = ?  ";
-           
-            
-            
+
             String namaBahan = bahanBaku.getNamaBahan();
             String keterangan = bahanBaku.getKeterangan();
             byte[] foto = bahanBaku.getFoto();
@@ -49,6 +70,7 @@ public class BahanBakuRepo {
                         keterangan);
                  
                  int idBahanBaku = result.getGeneratedKeys();
+                 GeneratedKeys =  idBahanBaku;
                  String noBahanBaku  = "BBK" + idBahanBaku;
                  connector.executeQueryDML(
                          queryUpdate, 
@@ -148,7 +170,72 @@ public class BahanBakuRepo {
        return result;
     }
      
+     public DDLResult deleteBahanBakuAndDetailsByID(BahanBaku bahanBaku){
+            String query = "DELETE FROM bahan_baku WHERE id_bahan_baku = ?  OR no_bahan_baku = ?";
+           
+            String idBahanBaku = bahanBaku.getIdBahanBaku();
+            String noBahanBaku  = bahanBaku.getNo_bahan_baku();
+            
+//            System.out.println(idBahanBaku);
+//            System.out.println(noBahanBaku);
+//            System.out.println(namaBahan);
+//            System.out.println(keterangan);
+//            System.out.println(foto);
+//            
+            DDLResult result = null;
+            
+             try {
+                connector.checkConnection();
+                 result  = connector.executeQueryDML(
+                        query, 
+                     idBahanBaku,
+                     noBahanBaku);
+   
+//                       System.out.println("berhasil");
+
+            } catch (SQLException e) {
+               e.printStackTrace();
+               
+            } finally {
+                connector.closeConnection();
+             
+        }
+
+//        System.out.println(values);
+//        System.out.println("berhasil coy " + RowsAffected);
+       return result;
+    }
+     
      public List<BahanBaku> getAllBahanBaku(){
+       List<BahanBaku> bahanBakuList = new ArrayList<>();
+       
+       String query = "SELECT * FROM bahan_baku";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query);
+            
+            while(result.next()){
+                     String id_bahan_baku = result.getString("id_bahan_baku");
+                     String no_bahan_baku = result.getString("no_bahan_baku");
+                     String namaBahan = result.getString("nama_bahan");
+                     byte[] foto = result.getBytes("foto");
+                     String keterangan = result.getString("keterangan");
+                     BahanBaku bahanBaku = new BahanBaku(id_bahan_baku, no_bahan_baku, namaBahan, foto, keterangan);
+                     bahanBakuList.add(bahanBaku);
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return  bahanBakuList;
+    }
+     
+     public List<BahanBaku> getAllBahanBakuAndOther(){
        List<BahanBaku> bahanBakuList = new ArrayList<>();
        
        String query = "SELECT * FROM bahan_baku";
@@ -252,7 +339,7 @@ public class BahanBakuRepo {
      public List<BahanBaku> getBahanBakuByName(BahanBaku bahanBaku){
        List<BahanBaku> bahanBakuList = new ArrayList<>();
        
-       String query = "SELECT * FROM bahan_baku WHERE nama_bahan=?"; // belum fix
+       String query = "SELECT * FROM bahan_baku WHERE nama_bahan LIKE CONCAT(?, '%')";// belum fix
        String nama_bahan = bahanBaku.getNamaBahan();
 
         try {

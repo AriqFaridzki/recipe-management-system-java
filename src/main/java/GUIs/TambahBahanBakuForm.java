@@ -6,7 +6,14 @@ package GUIs;
 
 import javax.swing.WindowConstants;
 import Objects.BahanBaku;
+import Objects.bahanBakuDetail;
 import Repositorys.BahanBakuRepo;
+import Repositorys.BahanBakuDetailRepo;
+import Objects.JenisMetric;
+import Objects.Taggable;
+import Repositorys.jenisMetricRepo;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 
 
 
@@ -16,7 +23,8 @@ import Repositorys.BahanBakuRepo;
  */
 public class TambahBahanBakuForm extends javax.swing.JFrame {
     BahanBakuRepo bahanBakuRepo = new BahanBakuRepo();
-    
+    jenisMetricRepo jenisMetricRepo = new jenisMetricRepo();
+    BahanBakuDetailRepo bahanBakuDetailRepo = new BahanBakuDetailRepo();
 
     /**
      * Creates new form BahanBakuForm
@@ -27,11 +35,18 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public BahanBaku getAlldataBahanFromForms(){
-        brandFields.getText();
-        hargaFields.getText();
-        
+    public BahanBaku getAlldataBahanFromForms(){ 
         return new BahanBaku(namaBahanField.getText(),keteranganFields.getText());
+    }
+    
+    public bahanBakuDetail getAlldataBahanDetailFromForms(int generatedKeys){
+        
+        
+        String selectedUnit =(String) comboBoxMetric.getSelectedItem();
+        JenisMetric jenisMetricItem = jenisMetricRepo.getJenisMetricByNameAdd(selectedUnit);
+        System.out.println(generatedKeys);
+        
+        return new bahanBakuDetail(generatedKeys,Integer.parseInt(hargaFields.getText()),brandFields.getText(),jenisMetricItem.getId_metric());
     }
     
 //    public BahanBakuDetail getAlldataBahanDetailFromForms(){
@@ -65,6 +80,8 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         namaBahan3 = new javax.swing.JLabel();
         ambilGambarBtn = new javax.swing.JButton();
         namaBahan4 = new javax.swing.JLabel();
+        comboBoxMetric = new javax.swing.JComboBox<>();
+        namaBahan5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -115,6 +132,17 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         namaBahan4.setForeground(new java.awt.Color(102, 102, 102));
         namaBahan4.setText("none");
 
+        comboBoxMetric.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxMetric.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboBoxMetricFocusGained(evt);
+            }
+        });
+
+        namaBahan5.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        namaBahan5.setForeground(new java.awt.Color(51, 153, 255));
+        namaBahan5.setText("Unit");
+
         javax.swing.GroupLayout panelAddBahanLayout = new javax.swing.GroupLayout(panelAddBahan);
         panelAddBahan.setLayout(panelAddBahanLayout);
         panelAddBahanLayout.setHorizontalGroup(
@@ -126,18 +154,22 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaBahanField, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaBahan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelAddBahanLayout.createSequentialGroup()
                         .addComponent(namaBahan3)
                         .addGap(18, 18, 18)
                         .addComponent(namaBahan4))
-                    .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaBahan1)
                     .addComponent(ambilGambarBtn)
                     .addComponent(namaBahan2)
                     .addComponent(brandFields, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(108, 108, 108))
+                .addGap(6, 6, Short.MAX_VALUE)
+                .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(namaBahan5)
+                    .addComponent(comboBoxMetric, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
             .addGroup(panelAddBahanLayout.createSequentialGroup()
                 .addGap(369, 369, 369)
                 .addComponent(tambahBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,9 +193,13 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(brandFields, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(namaBahan1)
+                        .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(namaBahan1)
+                            .addComponent(namaBahan5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(hargaFields, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxMetric, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(panelAddBahanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(namaBahan3)
@@ -193,7 +229,7 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +265,24 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         BahanBaku bahanBaku = getAlldataBahanFromForms();
         bahanBakuRepo.addBahanBaku(bahanBaku);
+        bahanBakuDetail bahanBakuDetail = getAlldataBahanDetailFromForms(bahanBakuRepo.getGeneratedKeys());
+        bahanBakuDetailRepo.addBahanBakuDetail(bahanBakuDetail);
     }//GEN-LAST:event_tambahBtnActionPerformed
+
+    private void comboBoxMetricFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboBoxMetricFocusGained
+        // TODO add your handling code here:
+                
+        
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        List<JenisMetric> jenisMetricList = jenisMetricRepo.getAllJenisMetric();
+        
+        for (int i = 0; i < jenisMetricList.size(); i++) {
+            JenisMetric jenisMetricValue = jenisMetricList.get(i);
+            comboBoxModel.addElement(jenisMetricValue.getNama_metric());
+        }
+        
+        comboBoxMetric.setModel( comboBoxModel);
+    }//GEN-LAST:event_comboBoxMetricFocusGained
 
     /**
      * @param args the command line arguments
@@ -270,6 +323,7 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ambilGambarBtn;
     private javax.swing.JTextField brandFields;
+    private javax.swing.JComboBox<String> comboBoxMetric;
     private javax.swing.JTextField hargaFields;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -282,6 +336,7 @@ public class TambahBahanBakuForm extends javax.swing.JFrame {
     private javax.swing.JLabel namaBahan2;
     private javax.swing.JLabel namaBahan3;
     private javax.swing.JLabel namaBahan4;
+    private javax.swing.JLabel namaBahan5;
     private javax.swing.JTextField namaBahanField;
     private javax.swing.JPanel panelAddBahan;
     private javax.swing.JButton tambahBtn;

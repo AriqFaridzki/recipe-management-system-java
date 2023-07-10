@@ -6,6 +6,7 @@ package Repositorys;
 
 import Connectors.DDLResult;
 import Connectors.databaseConnector;
+import Objects.BahanBaku;
 import Objects.JenisMetric;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ public class jenisMetricRepo {
                         Keterangan);
                  
                  int id_metric = result.getGeneratedKeys();
-                 String no_metric  = "METRIC" + id_metric;
+                 String no_metric  = "UNIT" + id_metric;
                  
                  connector.executeQueryDML(
                          queryUpdate, 
@@ -178,5 +179,97 @@ public class jenisMetricRepo {
         
        return  JenisMetricList;
     }
+     
+      public List<JenisMetric> getJenisMetricByName(String nama_metric){
+           List<JenisMetric> JenisMetricList = new ArrayList<>();
+       
+       String query = "SELECT * FROM jenis_metric WHERE nama_metric LIKE CONCAT(?, '%')";// belum fix
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, nama_metric);
+            
+          while(result.next()){
+                
+                int id_metric = result.getInt("id_metric");
+                String no_metric = result.getString("no_metric");
+                String nama_metrics =  result.getString("nama_metric");
+                String Keterangan = result.getString("keterangan");
+                  
+                     JenisMetric JenisMetric = new JenisMetric(
+                             id_metric, 
+                             no_metric, 
+                             nama_metrics,
+                     Keterangan);
+                     
+                     JenisMetricList.add(JenisMetric);
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return  JenisMetricList;
+    }
     
+       public JenisMetric getJenisMetricByID(int id_metric){
+       
+       String query = "SELECT * FROM jenis_metric WHERE id_metric=?";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, id_metric);
+            
+          while(result.next()){
+                
+                int id_metrics = result.getInt("id_metric");
+                String no_metric = result.getString("no_metric");
+                String nama_metrics =  result.getString("nama_metric");
+                String Keterangan = result.getString("keterangan");
+                 
+                return new JenisMetric(id_metrics, no_metric, nama_metrics, Keterangan);
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return null;
+    }
+       
+       public JenisMetric getJenisMetricByNameAdd(String nama_metric){
+       
+       String query = "SELECT * FROM jenis_metric WHERE nama_metric=?";
+
+        try {
+            connector.checkConnection();
+            ResultSet result = connector.executeQueryRead(
+                    query, nama_metric);
+            
+          while(result.next()){
+                
+                int id_metrics = result.getInt("id_metric");
+                String no_metric = result.getString("no_metric");
+                String nama_metrics =  result.getString("nama_metric");
+                String Keterangan = result.getString("keterangan");
+                 
+                return new JenisMetric(id_metrics, no_metric, nama_metrics, Keterangan);
+            }
+       connector.closeResultSet(result);
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        } finally{
+            connector.closeConnection();
+        }
+        
+       return null;
+    }
+       
+       
 }
