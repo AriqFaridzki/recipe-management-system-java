@@ -266,7 +266,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(bahanBakuLayout.createSequentialGroup()
                 .addGroup(bahanBakuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bahanBakuLayout.createSequentialGroup()
-                        .addGap(438, 438, 438)
+                        .addGap(426, 426, 426)
                         .addComponent(cariByNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cariByNameBtn))

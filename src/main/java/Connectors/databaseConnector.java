@@ -26,9 +26,9 @@ import java.sql.Statement;
  */
 public class databaseConnector {
     
-    private static final String url = "jdbc:mysql://localhost:3306/recipe-management-system";
-    private static final String username = "root";
-    private static final String password ="";
+    private static final String url = "jdbc:mysql://localhost:3306/recipe_management_system";
+    private static final String username = "ariq";
+    private static final String password = "kuninganb6";
     
     private Connection connection;
 //    private Statement statement;
